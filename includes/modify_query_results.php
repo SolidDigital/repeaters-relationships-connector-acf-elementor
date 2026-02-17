@@ -7,6 +7,22 @@ if ( ! \defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Resolves the current context ID for ACF field lookups.
+ *
+ * On taxonomy archives, returns the ACF-formatted '{taxonomy}_{term_id}' string.
+ * On singular posts/pages, falls back to get_the_ID().
+ *
+ * @return int|string The post ID or ACF-formatted term identifier.
+ */
+function resolve_current_context_id() {
+	$queried_object = \get_queried_object();
+	if ( $queried_object instanceof \WP_Term ) {
+		return $queried_object->taxonomy . '_' . $queried_object->term_id;
+	}
+	return \get_the_ID();
+}
+
+/**
  * Resolves the ACF post ID based on the widget's data source setting.
  *
  * @param \Elementor\Widget_Base $widget The widget instance.
@@ -16,7 +32,7 @@ if ( ! \defined( 'ABSPATH' ) ) {
 function resolve_acf_post_id( $widget ) {
 	$data_source = $widget->get_settings( 'post_query_acf_data_source' );
 	if ( empty( $data_source ) || 'current_post' === $data_source ) {
-		return \get_the_ID();
+		return resolve_current_context_id();
 	}
 	return $data_source;
 }
