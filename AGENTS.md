@@ -1,40 +1,19 @@
-# Agent Instructions
+# Plugin Context Summary
 
-This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
+This plugin allows an Elementor Loop Grid to use an ACF Repeater or ACF Relationship field as its data source. It also provides dynamic tags to pull sub-field data within the loop template.
 
-## Quick Reference
+## Dev Workflow
+- Always git commit updates after changes unless instructed otherwise.
+- Break large changes into multiple smaller commits grouped by related changes.
+- If changes require explanation in the readme.txt, add that
+- After changes, make appropriate semantic version updates in repeaters-relationships-connector-acf-elementor.php and readme.txt
+- Update the changelog in readme.txt
 
-```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
-bd update <id> --status in_progress  # Claim work
-bd close <id>         # Complete work
-bd sync               # Sync with git
-```
+## Documentation
 
-## Landing the Plane (Session Completion)
-
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
-
-**MANDATORY WORKFLOW:**
-
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   bd sync
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
-
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
-
+| Doc | Read if interested in:                                                               |
+|-----|--------------------------------------------------------------------------------------|
+| [Architecture](docs/architecture.md) | File structure, namespace, and key includes                                          |
+| [Query Source Controls](docs/query-source.md) | How the Loop Grid query source is extended with ACF sources and custom dropdowns     |
+| [Query Execution](docs/query-execution.md) | How repeater rows and relationship posts are injected into Elementor's query results |
+| [Dynamic Tags](docs/dynamic-tags.md) | The two dynamic tags for accessing repeater sub-fields and relationship post data    |
