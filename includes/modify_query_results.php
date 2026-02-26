@@ -19,6 +19,9 @@ function resolve_current_context_id() {
 	if ( $queried_object instanceof \WP_Term ) {
 		return $queried_object->taxonomy . '_' . $queried_object->term_id;
 	}
+	if ( $queried_object instanceof \WP_User ) {
+		return 'user_' . $queried_object->ID;
+	}
 	return \get_the_ID();
 }
 

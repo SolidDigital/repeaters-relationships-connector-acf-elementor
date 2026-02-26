@@ -118,7 +118,7 @@ if ( ! \defined( 'ABSPATH' ) ) {
 
         private function get_acf_data_source_options() {
             $options = [
-                'current_post' => \__( 'Current Post/Page/Term', 'repeaters-relationships-connector-acf-elementor' ),
+                'current_post' => \__( 'Current Post/Page/Term/Author', 'repeaters-relationships-connector-acf-elementor' ),
             ];
             if ( \function_exists( 'acf_get_options_pages' ) ) {
                 $options_pages = \acf_get_options_pages();
