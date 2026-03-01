@@ -2,7 +2,7 @@
 Tags: elementor, acf, repeater, relationship, loop grid
 Requires at least: 5.8
 Tested up to: 6.8
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -20,6 +20,8 @@ This plugin allows you to use ACF Repeater and ACF Relationship fields as data s
 *   **Use Relationship Data:** Select any ACF Relationship field to create a grid of related posts in your Loop Grid.
 *   **Repeater Sub-Field Tag:** A dedicated dynamic tag to easily pull and display data (text, images, etc.) from any sub-field within your repeater.
 *   **Relationship Sub-Field Tag:** A dynamic tag to display data from the related posts, such as the post title, content, featured image, and permalink.
+*   **Taxonomy Archive Support:** Use ACF Repeater and Relationship fields on category, tag, and custom taxonomy archive templates.
+*   **Author Archive Support:** Use ACF Repeater and Relationship fields on author archive templates.
 
 == Requirements ==
 
@@ -67,6 +69,12 @@ You must have Elementor, Elementor Pro, and Advanced Custom Fields Pro installed
 **Can I get data from a repeater on a site-wide options page?**
 Yes! When you select "ACF Repeater" or "ACF Relationship" as your source, a "Data Source" dropdown appears. It lists "Current Post/Page" (the default) along with any registered ACF Options Pages. Select the options page that contains your field, then choose the field name as usual.
 
+**Does this work on category/taxonomy archive templates?**
+Yes! As of version 1.2.0, the plugin automatically detects taxonomy archive contexts (categories, tags, and custom taxonomies). When you place a Loop Grid on an archive template with an ACF Repeater or Relationship source set to "Current Post/Page/Term", the plugin will pull field data from the current taxonomy term.
+
+**Does this work on author archive templates?**
+Yes! As of version 1.2.0, the plugin automatically detects author archive contexts. When you place a Loop Grid on an archive template with an ACF Repeater or Relationship source set to "Current Post/Page/Term/Author", the plugin will pull field data from the current author.
+
 **Why isn't my ACF field showing up in the dropdown?**
 The dropdowns in the Loop Grid query settings only show fields that are available on the specific post or page you are currently editing with Elementor. Ensure that the post has a value saved for the ACF field you are trying to select.
 
@@ -79,6 +87,10 @@ The dropdowns in the Loop Grid query settings only show fields that are availabl
 5. For Relationships, select the ACF Relationship name to use as the data source.
 
 == Changelog ==
+
+= 1.2.0 =
+* Added taxonomy archive template support. ACF Repeater and Relationship fields now work on category, tag, and custom taxonomy archive templates.
+* Added author archive template support. ACF Repeater and Relationship fields now work on author archive templates.
 
 = 1.1.1 =
 * Bumping version to get it to show up in the WordPress plugin directory.
