@@ -2,7 +2,7 @@
 Tags: elementor, acf, repeater, relationship, loop grid
 Requires at least: 5.8
 Tested up to: 6.8
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,6 +19,7 @@ This plugin allows you to use ACF Repeater and ACF Relationship fields as data s
 *   **Use Repeater Data:** Select any ACF Repeater field from the current post/page to power your Loop Grid.
 *   **Use Relationship Data:** Select any ACF Relationship field to create a grid of related posts in your Loop Grid.
 *   **Repeater Sub-Field Tag:** A dedicated dynamic tag to easily pull and display data (text, images, etc.) from any sub-field within your repeater.
+*   **File Field Output:** Repeater file sub-fields can output the file URL or file name, including ACF File fields saved as an array, attachment ID, or URL.
 *   **Relationship Sub-Field Tag:** A dynamic tag to display data from the related posts, such as the post title, content, featured image, and permalink.
 *   **Taxonomy Archive Support:** Use ACF Repeater and Relationship fields on category, tag, and custom taxonomy archive templates.
 *   **Author Archive Support:** Use ACF Repeater and Relationship fields on author archive templates.
@@ -53,6 +54,7 @@ This plugin allows you to use ACF Repeater and ACF Relationship fields as data s
 4.  Scroll to the "ACF Connector" group and select the **ACF Repeater Sub Field** tag.
 5.  Click on the tag name again to open its settings.
 6.  In the **Sub Field** dropdown, select the specific sub-field you want to display. The fields are grouped by repeater name for clarity.
+7.  For ACF File sub-fields, set **Output** to "File URL" or "File Name" when you need one of those values instead of the raw ACF field value.
 
 Note that the preview within the template will not display the sub-field data. This is expected behavior because no applicable preview data can be set in Elementor.
 
@@ -87,6 +89,9 @@ The dropdowns in the Loop Grid query settings only show fields that are availabl
 5. For Relationships, select the ACF Relationship name to use as the data source.
 
 == Changelog ==
+
+= 1.3.0 =
+* Added ACF File field output support for repeater sub-fields. File fields can now return the file URL or file name from ACF array, attachment ID, and URL return formats.
 
 = 1.2.0 =
 * Added taxonomy archive template support. ACF Repeater and Relationship fields now work on category, tag, and custom taxonomy archive templates.

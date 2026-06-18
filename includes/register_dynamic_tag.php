@@ -40,6 +40,20 @@ if ( ! \defined( 'ABSPATH' ) ) {
                     'options' => $this->get_repeater_sub_field_options(),
                 ]
             );
+
+            $this->add_control(
+                'file_output',
+                [
+                    'label'   => \__( 'Output', 'repeaters-relationships-connector-acf-elementor' ),
+                    'type'    => \Elementor\Controls_Manager::SELECT,
+                    'default' => 'value',
+                    'options' => [
+                        'value'     => \__( 'Field Value', 'repeaters-relationships-connector-acf-elementor' ),
+                        'file_url'  => \__( 'File URL', 'repeaters-relationships-connector-acf-elementor' ),
+                        'file_name' => \__( 'File Name', 'repeaters-relationships-connector-acf-elementor' ),
+                    ],
+                ]
+            );
         }
 
         public function get_value( array $options = [] ) {
@@ -66,6 +80,15 @@ if ( ! \defined( 'ABSPATH' ) ) {
             }
 
             $value = $row[ $sub_field_name ];
+            $file_output = $this->get_settings( 'file_output' );
+
+            if ( 'file_url' === $file_output ) {
+                return $this->get_file_url( $value );
+            }
+
+            if ( 'file_name' === $file_output ) {
+                return $this->get_file_name( $value );
+            }
 
             if ( \is_numeric( $value ) ) {
                 $image_url = \wp_get_attachment_image_url( $value, 'full' );
@@ -78,6 +101,71 @@ if ( ! \defined( 'ABSPATH' ) ) {
             }
 
             return $value;
+        }
+
+        private function get_file_url( $value ) {
+            if ( \is_array( $value ) && ! empty( $value['url'] ) ) {
+                return $value['url'];
+            }
+
+            if ( \is_numeric( $value ) ) {
+                $url = \wp_get_attachment_url( (int) $value );
+
+                return $url ? $url : '';
+            }
+
+            if ( \is_string( $value ) ) {
+                return $value;
+            }
+
+            return '';
+        }
+
+        private function get_file_name( $value ) {
+            if ( \is_array( $value ) ) {
+                if ( ! empty( $value['filename'] ) ) {
+                    return $value['filename'];
+                }
+
+                if ( ! empty( $value['url'] ) ) {
+                    return $this->get_file_name_from_path( $value['url'] );
+                }
+
+                if ( ! empty( $value['ID'] ) ) {
+                    return $this->get_file_name( $value['ID'] );
+                }
+
+                if ( ! empty( $value['id'] ) ) {
+                    return $this->get_file_name( $value['id'] );
+                }
+            }
+
+            if ( \is_numeric( $value ) ) {
+                $file_path = \get_attached_file( (int) $value );
+                if ( $file_path ) {
+                    return \wp_basename( $file_path );
+                }
+
+                $url = \wp_get_attachment_url( (int) $value );
+                if ( $url ) {
+                    return $this->get_file_name_from_path( $url );
+                }
+            }
+
+            if ( \is_string( $value ) ) {
+                return $this->get_file_name_from_path( $value );
+            }
+
+            return '';
+        }
+
+        private function get_file_name_from_path( $path ) {
+            $parsed_path = \wp_parse_url( $path, \PHP_URL_PATH );
+            if ( ! empty( $parsed_path ) ) {
+                $path = $parsed_path;
+            }
+
+            return \wp_basename( \rawurldecode( $path ) );
         }
 
         private function get_repeater_sub_field_options() {
